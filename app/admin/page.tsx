@@ -48,6 +48,7 @@ export default function Admin() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", gap: 16, flexWrap: "wrap" }}>
         <div><div className="eyebrow">Admin</div><h1 className="h2" style={{ marginTop: 12 }}>내 글 {rows.length}</h1></div>
         <div style={{ display: "flex", gap: 12 }}>
+          <Link href="/admin/calendar" className="btn-ghost">일정</Link>
           <Link href="/admin/write" className="btn-primary">새 글 쓰기</Link>
           <button className="btn-ghost" onClick={() => { clearKey(); setAuthed(false); }}>로그아웃</button>
         </div>

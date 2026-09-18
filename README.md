@@ -35,3 +35,7 @@ Vercel 환경변수만 넣으면 됩니다 (없으면 광고 코드 자체가 �
 | `ADSENSE_PUBLISHER_ID` | `pub-XXXXXXXXXXXXXXXX` | `/ads.txt` 자동 제공 (생략 시 CLIENT에서 유추) |
 
 다른 위치에 광고를 넣으려면 `import { AdSlot } from "@/components/ads"` 후 `<AdSlot slot="…" />`.
+
+## 일정 캘린더 (관리자 전용)
+- `/admin/calendar` — 월간 달력 + 오른쪽 일정 목록. 날짜 더블클릭으로 추가, 일정 클릭으로 수정/삭제. 알림(분 단위) 설정 가능.
+- 휴대폰 연동: 화면의 "휴대폰 캘린더에 연동" → 구독 주소(`/api/calendar.ics?token=…`)를 구글/애플 캘린더에 구독 추가. 토큰은 ADMIN_KEY에서 파생되며 `CALENDAR_TOKEN` 환경변수로 바꿀 수 있음(바꾸면 재구독 필요).

@@ -12,6 +12,11 @@ export async function POST(req: Request) {
     created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now())`;
   await sql`CREATE INDEX IF NOT EXISTS posts_published_idx ON posts (published, created_at DESC)`;
   await sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS font TEXT`;
+  await sql`CREATE TABLE IF NOT EXISTS events (
+    id SERIAL PRIMARY KEY, title TEXT NOT NULL, starts_at TIMESTAMPTZ NOT NULL, ends_at TIMESTAMPTZ,
+    all_day BOOLEAN DEFAULT FALSE, location TEXT, note TEXT, remind_min INT,
+    created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now())`;
+  await sql`CREATE INDEX IF NOT EXISTS events_starts_idx ON events (starts_at)`;
   const [{ count }] = await sql`SELECT count(*)::int AS count FROM posts`;
   return NextResponse.json({ ok: true, posts: count });
 }
