@@ -34,7 +34,7 @@ export function LogEntry({ log }: { log: Log }) {
     <article id={log.id} className={`log ${log.flip ? "flip" : ""}`}>
       <div className="log-img">
         <div className="frame"><img className="photo" src={log.img} alt={log.cap} loading="lazy" style={{ aspectRatio: "4 / 3" }} /></div>
-        <div className="cap"><span>{log.meta}</span><span>{log.cap}</span></div>
+        <div className="cap"><span>FIG. {log.meta.replace("LOG ", "")}</span><span>{log.cap}</span></div>
       </div>
       <div>
         <div className="mono" style={{ fontSize: 12, color: "var(--ink2)", letterSpacing: ".06em" }}>{log.tag}</div>

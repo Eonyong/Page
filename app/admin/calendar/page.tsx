@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { api, getKey } from "@/lib/admin-client";
+import { holidayName } from "@/lib/holidays";
 
 type Ev = { id: number; title: string; starts_at: string; ends_at: string | null; all_day: boolean; location: string | null; note: string | null; remind_min: number | null };
 type Draft = { id?: number; title: string; date: string; start: string; end: string; all_day: boolean; location: string; note: string; remind_min: string };
@@ -86,9 +87,11 @@ export default function CalendarPage() {
             {WEEK.map((w, i) => <div key={w} className="cal-dow" style={{ color: i === 0 ? "#B42318" : i === 6 ? "var(--accent)" : undefined }}>{w}</div>)}
             {cells.map((d) => {
               const k = ymd(d); const inMonth = d.getMonth() === cursor.getMonth(); const evs = byDay[k] ?? [];
+              const hol = holidayName(k); const dow = d.getDay(); const red = hol || dow === 0; const blue = !red && dow === 6;
               return (
-                <button key={k} className={`cal-cell ${inMonth ? "" : "dim"} ${k === selected ? "sel" : ""} ${k === today ? "today" : ""}`} onClick={() => setSelected(k)} onDoubleClick={() => setDraft(emptyDraft(k))}>
+                <button key={k} className={`cal-cell ${inMonth ? "" : "dim"} ${k === selected ? "sel" : ""} ${k === today ? "today" : ""} ${red ? "red" : ""} ${blue ? "blue" : ""}`} onClick={() => setSelected(k)} onDoubleClick={() => setDraft(emptyDraft(k))}>
                   <span className="cal-num">{d.getDate()}</span>
+                  {hol && <span className="cal-hol">{hol}</span>}
                   <span className="cal-evs">{evs.slice(0, 3).map((e) => <span key={e.id} className={`cal-ev ${e.all_day ? "all" : ""}`}>{e.title}</span>)}{evs.length > 3 && <span className="cal-more">+{evs.length - 3}</span>}</span>
                 </button>
               );
@@ -121,7 +124,7 @@ export default function CalendarPage() {
           ) : (
             <>
               <div className="cal-side-head">
-                <div><div className="mono" style={{ fontSize: 12, color: "var(--ink2)" }}>{selected.replace(/-/g, ".")} ({WEEK[new Date(selected + "T00:00:00").getDay()]})</div>
+                <div><div className="mono" style={{ fontSize: 12, color: holidayName(selected) ? "#B42318" : "var(--ink2)" }}>{selected.replace(/-/g, ".")} ({WEEK[new Date(selected + "T00:00:00").getDay()]}){holidayName(selected) ? ` · ${holidayName(selected)}` : ""}</div>
                   <h3 className="h3" style={{ fontSize: 20 }}>{(byDay[selected] ?? []).length ? `일정 ${(byDay[selected] ?? []).length}건` : "일정 없음"}</h3></div>
                 <button className="btn-ghost" style={{ padding: "6px 10px", fontSize: 13 }} onClick={() => setDraft(emptyDraft(selected))}>+ 추가</button>
               </div>

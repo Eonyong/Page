@@ -9,7 +9,7 @@ export default function Home() {
       <section className="wrap" style={{ paddingBlock: "48px 56px" }}>
         <div className="mast">
           <div>
-            <div className="eyebrow">Field log · Seoul · 2026</div>
+            <div className="arch">Archive · Field log · Seoul · 2026</div>
             <h1 className="h1" style={{ marginTop: 18 }}>손으로 반복하던 빌드와 배포를,<br />돌아가는 파이프라인으로.</h1>
             <p className="lede" style={{ marginTop: 22 }}>
               차량 제어 소프트웨어 현장에서 CI/CD/CT 환경을 직접 구축하고 운영해 온 엔지니어입니다.
@@ -22,7 +22,7 @@ export default function Home() {
               <a className="arrow" href={BLOG} target="_blank" rel="noopener">네이버 블로그 <Arrow /></a>
             </div>
           </div>
-          <div>
+          <div className="hero-photo">
             <div className="frame"><img className="photo" src="/assets/bench.jpg" alt="ECU 보드와 하네스가 놓인 작업대" style={{ aspectRatio: "3 / 2" }} /></div>
             <div className="cap"><span>WORKBENCH</span><span>ECU · harness · scope</span></div>
           </div>
@@ -36,15 +36,23 @@ export default function Home() {
       </section>
 
       <section id="logs" className="wrap" style={{ paddingBlock: "24px 40px" }}>
-        <div className="rule" style={{ paddingTop: 28 }}>
-          <h2 className="h2">작업 일지</h2>
+        <div style={{ paddingTop: 28 }}>
+          <div className="arch">Archive 01 · Logs</div>
+          <h2 className="h2" style={{ marginTop: 10 }}>작업 일지</h2>
           <p className="body" style={{ marginTop: 10, maxWidth: "40em" }}>문제 → 처리 → 결과 순으로 적었습니다. 고객사 정보와 내부 수치는 뺐고, 사진은 재현 이미지입니다.</p>
         </div>
-        {LOGS.map((l, i) => (<div key={l.id} style={{ borderTop: i ? "1px solid var(--rule2)" : "none" }}><LogEntry log={l} /></div>))}
+        {LOGS.map((l) => (
+          <div key={l.id} className="sheet">
+            <span className="sheet-tab">{l.meta}</span>
+            <span className="sheet-tab stamp">{l.tag.split(" · ")[0]}</span>
+            <LogEntry log={l} />
+          </div>
+        ))}
       </section>
 
       <section id="work" className="wrap" style={{ paddingBlock: 56 }}>
-        <h2 className="h2">맡길 수 있는 일</h2>
+        <div className="arch">Archive 02 · Services</div>
+        <h2 className="h2" style={{ marginTop: 10 }}>맡길 수 있는 일</h2>
         <p className="body" style={{ margin: "10px 0 28px", maxWidth: "40em" }}>전담 인프라 인력이 없는 소규모 팀·1인 개발사·연구실에서 효과가 큽니다.</p>
         <dl className="def">
           <div><dt>CI/CD/CT 파이프라인 구축</dt><dd>Jenkins·Docker로 빌드→정적분석→테스트→배포를 자동화합니다. Windows 에이전트, ALM 연계 배포, 산출물 보관 정책까지 포함합니다.</dd></div>
@@ -55,7 +63,8 @@ export default function Home() {
       </section>
 
       <section id="how" className="wrap" style={{ paddingBlock: "8px 56px" }}>
-        <h2 className="h2">진행 순서</h2>
+        <div className="arch">Archive 03 · Process</div>
+        <h2 className="h2" style={{ marginTop: 10 }}>진행 순서</h2>
         <p className="body" style={{ margin: "10px 0 28px", maxWidth: "40em" }}>범위를 먼저 고정하고, 작은 단위로 자주 보여드립니다.</p>
         <div className="steps">
           <div className="step"><h4>현황 파악</h4><p>지금 손으로 하는 작업과 환경(OS·툴체인·권한)을 30분 통화나 문서로 확인합니다.</p></div>
@@ -66,7 +75,7 @@ export default function Home() {
       </section>
 
       <section className="wrap" style={{ paddingBlock: "8px 64px" }}>
-        <div className="rule" style={{ paddingTop: 28 }} />
+        <div className="arch" style={{ marginBottom: 14 }}>Archive 04 · Tools</div>
         <div className="tools">
           <div><h5>CI / CD / CT</h5><p>Jenkins<br />Docker<br />Windows agent<br />ALM 연계<br />Git</p></div>
           <div><h5>Embedded / Automotive</h5><p>Simulink<br />TRACE32 (Lauterbach)<br />CAN / UDS · DID<br />C</p></div>
