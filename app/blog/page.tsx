@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { listPosts, hasDb } from "@/lib/db";
 import { Arrow } from "@/components/logs";
+import { AdSlot } from "@/components/ads";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "블로그" };
@@ -30,6 +31,7 @@ export default async function BlogIndex() {
           ))}
         </div>
       )}
+      <div style={{ marginTop: 40 }}><AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_LIST} /></div>
     </main>
   );
 }

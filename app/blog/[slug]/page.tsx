@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPost } from "@/lib/db";
 import { renderMarkdown } from "@/lib/md";
+import { AdSlot } from "@/components/ads";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +20,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       {post.summary && <p className="lede" style={{ marginTop: 14 }}>{post.summary}</p>}
       {post.cover_url && <div className="frame" style={{ marginTop: 28 }}><img className="photo" src={post.cover_url} alt="" /></div>}
       <article className="prose" style={{ marginTop: 32 }} dangerouslySetInnerHTML={{ __html: renderMarkdown(post.body_md) }} />
+      <div style={{ marginTop: 40, maxWidth: "70ch" }}><AdSlot slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_POST} /></div>
     </main>
   );
 }
