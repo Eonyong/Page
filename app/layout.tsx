@@ -27,17 +27,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Script async strategy="afterInteractive" crossOrigin="anonymous"
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE}`} />
         )}
+        <aside className="rail" aria-label="바로가기">
+          <span className="burger" aria-hidden="true"><i /><i /><i /></span>
+          <nav className="soc">
+            <a href="https://blog.naver.com/pacho_" target="_blank" rel="noopener">Blog</a>
+            <a href="https://github.com/Eonyong" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:eyjeong1202@gmail.com">Mail</a>
+          </nav>
+        </aside>
         <header className="wrap header">
-          <Link href="/" className="serif" style={{ fontWeight: 800, fontSize: 18, textDecoration: "none" }}>
-            정언용 <span className="mono" style={{ fontWeight: 400, fontSize: 12, color: "var(--ink2)", marginLeft: 6 }}>automation · ci/ct</span>
+          <Link href="/" style={{ fontWeight: 700, fontSize: 22, letterSpacing: "-.02em", textDecoration: "none" }}>
+            Eonyong<span style={{ color: "var(--ink2)" }}>.</span>
           </Link>
           <nav className="nav">
+            <Link href="/">Home</Link>
             <Link href="/#logs">작업 일지</Link>
-            <Link href="/#work">맡길 수 있는 일</Link>
+            <Link href="/#work">서비스</Link>
             <Link href="/#how">진행 순서</Link>
             <Link href="/blog">블로그</Link>
-            <Link href="/#contact">문의</Link>
           </nav>
+          <Link href="/#contact" className="btn-primary" style={{ padding: "12px 22px" }}>프로젝트 문의</Link>
         </header>
         <div className="wrap rule" />
         {children}

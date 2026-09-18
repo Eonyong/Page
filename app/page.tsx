@@ -6,27 +6,44 @@ const MAIL = "eyjeong1202@gmail.com";
 export default function Home() {
   return (
     <main>
-      <section className="wrap" style={{ paddingBlock: "48px 56px" }}>
-        <div className="mast">
-          <div>
-            <div className="arch">Archive · Field log · Seoul · 2026</div>
-            <h1 className="h1" style={{ marginTop: 18 }}>손으로 반복하던 빌드와 배포를,<br />돌아가는 파이프라인으로.</h1>
-            <p className="lede" style={{ marginTop: 22 }}>
-              차량 제어 소프트웨어 현장에서 CI/CD/CT 환경을 직접 구축하고 운영해 온 엔지니어입니다.
-              Jenkins·Docker 기반 자동화, 진단 데이터 파싱 스크립트, 팀이 매일 보는 현황 대시보드까지.
-              아래는 실제로 처리한 일을 기록한 작업 일지입니다.
-            </p>
-            <div style={{ display: "flex", gap: 22, alignItems: "center", flexWrap: "wrap", marginTop: 30 }}>
-              <a className="mail" href={`mailto:${MAIL}`}>이메일 보내기 <span className="addr">{MAIL}</span></a>
-              <a className="link" href="#logs">작업 일지 읽기</a>
-              <a className="arrow" href={BLOG} target="_blank" rel="noopener">네이버 블로그 <Arrow /></a>
-            </div>
-          </div>
-          <div className="hero-photo">
-            <div className="frame"><img className="photo" src="/assets/bench.jpg" alt="ECU 보드와 하네스가 놓인 작업대" style={{ aspectRatio: "3 / 2" }} /></div>
-            <div className="cap"><span>WORKBENCH</span><span>ECU · harness · scope</span></div>
-          </div>
+      <section className="wrap stage">
+        <div className="stage-idx">
+          <div className="n">/01</div>
+          <div className="bar" />
+          <a className="on" href="#logs">작업 일지</a>
+          <a href="#work">맡길 수 있는 일</a>
+          <a href="#how">진행 순서</a>
+          <a href="/blog">블로그</a>
         </div>
+        <div className="stage-figure">
+          <img src="/assets/hero-3d.png" alt="자동차 ECU를 닮은 3D 캐릭터" width={560} height={560} />
+        </div>
+        <div className="stage-copy">
+          <span className="chip"><i />Embedded · CI/CT 자동화 엔지니어</span>
+          <h1 className="h1">손으로 반복하던 일을,<br />돌아가는 파이프라인으로.</h1>
+          <p className="body">차량 제어 SW 현장에서 Jenkins·Docker CI/CT 환경을 직접 구축하고 운영해 온 엔지니어입니다. 진단 데이터 파싱 스크립트, 현황 대시보드까지 자동화해 드립니다.</p>
+          <a className="cta-solid" href="#contact">프로젝트 시작하기</a>
+        </div>
+      </section>
+
+      <section className="strip">
+        <div>
+          <div className="lbl">RECENT WORK</div>
+          <div className="two">
+            {LOGS.slice(0, 2).map((l) => (<a key={l.id} href={`#${l.id}`}>{l.title}<small>{l.tag}</small></a>))}
+          </div>
+          <div style={{ marginTop: 14 }}><a className="more" href="#logs">· · ·</a></div>
+        </div>
+        <div className="tile"><img src="/assets/tile-3d.jpg" alt="" /></div>
+        <div>
+          <div className="lbl">NOTES</div>
+          <a href="/blog" style={{ textDecoration: "none", color: "var(--ink)", fontSize: 15 }}>CI/CT, 자동화 스크립트, 임베디드 도구 기록</a>
+          <p className="body" style={{ marginTop: 6, fontSize: 14 }}>현장에서 부딪힌 문제와 해결 과정을 블로그에 남기고 있습니다.</p>
+          <div style={{ marginTop: 12 }}><a className="more" href="/blog">Read more…</a></div>
+        </div>
+      </section>
+
+      <section className="wrap" style={{ paddingBlock: "56px 8px" }}>
         <dl className="facts">
           <div><dt>DOMAIN</dt><dd>자동차 임베디드 SW</dd></div>
           <div><dt>CORE</dt><dd>Jenkins · Docker · Python</dd></div>
@@ -37,7 +54,7 @@ export default function Home() {
 
       <section id="logs" className="wrap" style={{ paddingBlock: "24px 40px" }}>
         <div style={{ paddingTop: 28 }}>
-          <div className="arch">Archive 01 · Logs</div>
+          <div className="arch">/02 · Logs</div>
           <h2 className="h2" style={{ marginTop: 10 }}>작업 일지</h2>
           <p className="body" style={{ marginTop: 10, maxWidth: "40em" }}>문제 → 처리 → 결과 순으로 적었습니다. 고객사 정보와 내부 수치는 뺐고, 사진은 재현 이미지입니다.</p>
         </div>
@@ -51,7 +68,7 @@ export default function Home() {
       </section>
 
       <section id="work" className="wrap" style={{ paddingBlock: 56 }}>
-        <div className="arch">Archive 02 · Services</div>
+        <div className="arch">/03 · Services</div>
         <h2 className="h2" style={{ marginTop: 10 }}>맡길 수 있는 일</h2>
         <p className="body" style={{ margin: "10px 0 28px", maxWidth: "40em" }}>전담 인프라 인력이 없는 소규모 팀·1인 개발사·연구실에서 효과가 큽니다.</p>
         <dl className="def">
@@ -63,7 +80,7 @@ export default function Home() {
       </section>
 
       <section id="how" className="wrap" style={{ paddingBlock: "8px 56px" }}>
-        <div className="arch">Archive 03 · Process</div>
+        <div className="arch">/04 · Process</div>
         <h2 className="h2" style={{ marginTop: 10 }}>진행 순서</h2>
         <p className="body" style={{ margin: "10px 0 28px", maxWidth: "40em" }}>범위를 먼저 고정하고, 작은 단위로 자주 보여드립니다.</p>
         <div className="steps">
@@ -75,7 +92,7 @@ export default function Home() {
       </section>
 
       <section className="wrap" style={{ paddingBlock: "8px 64px" }}>
-        <div className="arch" style={{ marginBottom: 14 }}>Archive 04 · Tools</div>
+        <div className="arch" style={{ marginBottom: 14 }}>/05 · Tools</div>
         <div className="tools">
           <div><h5>CI / CD / CT</h5><p>Jenkins<br />Docker<br />Windows agent<br />ALM 연계<br />Git</p></div>
           <div><h5>Embedded / Automotive</h5><p>Simulink<br />TRACE32 (Lauterbach)<br />CAN / UDS · DID<br />C</p></div>
