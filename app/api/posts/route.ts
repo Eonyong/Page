@@ -30,11 +30,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "slug(a-z0-9-), title, body_md 필요" }, { status: 400 });
   const sql = neon(process.env.DATABASE_URL as string);
   const tags: string[] = Array.isArray(b.tags) ? b.tags.filter((t: unknown) => typeof t === "string") : [];
+  const font: string | null = typeof b.font === "string" && /^[a-z-]{1,30}$/.test(b.font) ? b.font : null;
   const rows = await sql`
-    INSERT INTO posts (slug, title, summary, body_md, cover_url, tags, published)
-    VALUES (${b.slug}, ${b.title}, ${b.summary ?? null}, ${b.body_md}, ${b.cover_url ?? null}, ${tags}, ${Boolean(b.published)})
+    INSERT INTO posts (slug, title, summary, body_md, cover_url, tags, font, published)
+    VALUES (${b.slug}, ${b.title}, ${b.summary ?? null}, ${b.body_md}, ${b.cover_url ?? null}, ${tags}, ${font}, ${Boolean(b.published)})
     ON CONFLICT (slug) DO UPDATE SET title = EXCLUDED.title, summary = EXCLUDED.summary, body_md = EXCLUDED.body_md,
-      cover_url = EXCLUDED.cover_url, tags = EXCLUDED.tags, published = EXCLUDED.published, updated_at = now()
+      cover_url = EXCLUDED.cover_url, tags = EXCLUDED.tags, font = EXCLUDED.font, published = EXCLUDED.published, updated_at = now()
     RETURNING id, slug, published`;
   return NextResponse.json(rows[0]);
 }

@@ -11,6 +11,7 @@ export async function POST(req: Request) {
     cover_url TEXT, tags TEXT[] DEFAULT '{}', published BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now())`;
   await sql`CREATE INDEX IF NOT EXISTS posts_published_idx ON posts (published, created_at DESC)`;
+  await sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS font TEXT`;
   const [{ count }] = await sql`SELECT count(*)::int AS count FROM posts`;
   return NextResponse.json({ ok: true, posts: count });
 }

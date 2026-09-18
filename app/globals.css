@@ -136,3 +136,4 @@ html[data-editor],html[data-editor] body{height:100%;overflow:hidden}
 .ed-card{background:#fff;width:min(560px,100%);padding:28px;border-radius:10px;display:grid;gap:8px;max-height:90dvh;overflow:auto}
 .ed-lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-top:12px}
 .ed-slug{display:flex;align-items:center;gap:6px;color:var(--ink2);font-size:14px}
+.ed-font{font:inherit;font-size:13px;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:5px;padding:4px 8px;margin-left:auto;max-width:180px}

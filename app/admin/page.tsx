@@ -14,7 +14,7 @@ export default function Admin() {
   async function load() {
     try {
       const st = await fetch("/api/setup").then((r) => r.json());
-      if (st.db && !st.table) await api("/api/setup", { method: "POST" });
+      if (st.db) await api("/api/setup", { method: "POST" }); // 멱등: 테이블·컬럼 보정
       setRows(await api("/api/posts")); setAuthed(true); setErr("");
     }
     catch (e) { setAuthed(false); setErr((e as Error).message); }

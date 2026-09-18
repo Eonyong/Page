@@ -1,4 +1,4 @@
-// 의존성 없는 최소 마크다운 렌더러: 제목, 문단, 목록, 코드블록, 인라인 코드, 굵게, 링크, 이미지
+// 의존성 없는 최소 마크다운 렌더러: 제목, 문단(줄바꿈 유지), 목록, 코드블록, 인라인 코드, 굵게, 링크, 이미지
 function esc(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
@@ -30,7 +30,7 @@ export function renderMarkdown(md: string): string {
     if (l.trim() === "") { i++; continue; }
     const buf: string[] = [];
     while (i < lines.length && lines[i].trim() !== "" && !/^(#{1,3}\s|```|\s*[-*]\s)/.test(lines[i])) buf.push(lines[i++]);
-    out.push(`<p>${inline(buf.join(" "))}</p>`);
+    out.push(`<p>${buf.map(inline).join("<br />")}</p>`);
   }
   return out.join("\n");
 }

@@ -3,6 +3,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api, getKey } from "@/lib/admin-client";
 import { renderMarkdown } from "@/lib/md";
+import { FONTS, DEFAULT_FONT, fontFamily } from "@/lib/fonts";
 
 function slugify(s: string) {
   return s.toLowerCase().trim().replace(/[^a-z0-9가-힣\s-]/g, "").replace(/[\s_]+/g, "-").replace(/-+/g, "-").slice(0, 80);
@@ -21,6 +22,7 @@ function Editor() {
   const [cover, setCover] = useState("");
   const [body, setBody] = useState("");
   const [published, setPublished] = useState(false);
+  const [font, setFont] = useState(DEFAULT_FONT);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [showPublish, setShowPublish] = useState(false);
@@ -36,7 +38,7 @@ function Editor() {
     if (!editing) return;
     api(`/api/posts?slug=${editing}`).then((p) => {
       setTitle(p.title); setSlug(p.slug); setSlugTouched(true); setTags(p.tags ?? []); setSummary(p.summary ?? "");
-      setCover(p.cover_url ?? ""); setBody(p.body_md); setPublished(p.published);
+      setCover(p.cover_url ?? ""); setBody(p.body_md); setPublished(p.published); setFont(p.font ?? DEFAULT_FONT);
     }).catch((e) => setStatus((e as Error).message));
   }, [editing, router]);
 
@@ -70,7 +72,7 @@ function Editor() {
     if (!validSlug) { setStatus("URL 슬러그는 영문 소문자·숫자·하이픈만 가능합니다."); return; }
     setBusy(true); setStatus("");
     try {
-      await api("/api/posts", { method: "POST", body: JSON.stringify({ slug, title: title.trim(), summary: summary.trim() || null, body_md: body, cover_url: cover.trim() || null, tags, published: publish }) });
+      await api("/api/posts", { method: "POST", body: JSON.stringify({ slug, title: title.trim(), summary: summary.trim() || null, body_md: body, cover_url: cover.trim() || null, tags, font, published: publish }) });
       setPublished(publish); setShowPublish(false);
       setStatus(publish ? "출간했습니다." : "임시 저장했습니다.");
       if (!editing) router.replace(`/admin/write?slug=${slug}`);
@@ -96,6 +98,10 @@ function Editor() {
           <span className="sep" />
           <button onClick={() => linePrefix("- ")}>목록</button><button onClick={() => wrap("```\n", "\n```")}>코드</button>
           <button onClick={() => wrap("[", "](https://)")}>링크</button><button onClick={() => wrap("![", "](https://)")}>이미지</button>
+          <span className="sep" />
+          <select id="post-font" className="ed-font" value={font} onChange={(e) => setFont(e.target.value)} title="본문 글꼴" style={{ fontFamily: fontFamily(font) }}>
+            {FONTS.map((f) => <option key={f.key} value={f.key} style={{ fontFamily: f.family }}>{f.label}</option>)}
+          </select>
         </div>
         <textarea id="post-body" ref={ta} className="ed-body" placeholder="당신의 이야기를 적어보세요... (마크다운 지원)" value={body} onChange={(e) => setBody(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Tab") { e.preventDefault(); wrap("  ", ""); } }} />
@@ -111,7 +117,7 @@ function Editor() {
       <div className="ed-pane ed-right">
         <h1 className="ed-prev-title">{title || "제목"}</h1>
         {tags.length > 0 && <div className="ed-prev-tags">{tags.map((t) => <span key={t} className="tag">{t}</span>)}</div>}
-        <article className="prose" dangerouslySetInnerHTML={{ __html: html || "<p style='color:var(--ink2)'>미리보기가 여기에 표시됩니다.</p>" }} />
+        <article className="prose" style={{ fontFamily: fontFamily(font) }} dangerouslySetInnerHTML={{ __html: html || "<p style='color:var(--ink2)'>미리보기가 여기에 표시됩니다.</p>" }} />
       </div>
 
       {showPublish && (
