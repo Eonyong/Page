@@ -8,10 +8,10 @@ const ADSENSE = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000")),
-  title: { default: "정언용 · 자동화 스튜디오", template: "%s · 정언용" },
+  title: { default: "pacho · 자동화 스튜디오", template: "%s · pacho" },
   description: "차량 임베디드 SW 현장의 CI/CD/CT 구축, Python 자동화, 현황 대시보드 작업 일지와 문의처",
-  openGraph: { title: "정언용 · 자동화 스튜디오", description: "CI/CD/CT 구축 · Python 자동화 · 대시보드 — 작업 일지", images: ["/assets/og.jpg"], type: "website" },
-  icons: { icon: "/assets/favicon.png" },
+  openGraph: { title: "pacho · 자동화 스튜디오", description: "CI/CD/CT 구축 · Python 자동화 · 대시보드 — 작업 일지", images: ["/assets/og.jpg"], type: "website" },
+  icons: { icon: [{ url: "/favicon.ico" }, { url: "/icon.svg", type: "image/svg+xml" }, { url: "/assets/favicon.png", sizes: "512x512", type: "image/png" }], apple: "/apple-touch-icon.png" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </aside>
         <header className="wrap header">
           <Link href="/" style={{ fontWeight: 700, fontSize: 22, letterSpacing: "-.02em", textDecoration: "none" }}>
-            Eonyong<span style={{ color: "var(--ink2)" }}>.</span>
+            pacho<span style={{ color: "var(--ink2)" }}>.</span>
           </Link>
           <nav className="nav">
             <Link href="/">Home</Link>
