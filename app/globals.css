@@ -195,7 +195,7 @@ html[data-editor],html[data-editor] body{height:100%;overflow:hidden}
 @media(prefers-reduced-motion:reduce){.frame,.def>div,.post-row{transition:none} .frame:hover,.hero-photo .frame:hover,.log.flip .frame:hover{transform:none}}
 
 /* ---- showcase hero (dark slate) ---- */
-.stage{position:relative;min-height:calc(100dvh - 76px);display:grid;grid-template-columns:1fr;gap:24px;padding:24px 0 0}
+.stage{position:relative;min-height:calc(100dvh - 76px);display:grid;grid-template-columns:1fr;gap:24px;padding-block:24px 0}
 @media(min-width:1000px){.stage{grid-template-columns:200px minmax(0,1fr) 320px;align-items:center;gap:28px}}
 .stage-idx{align-self:center}
 .stage-idx .n{font-family:var(--mono);font-size:14px;color:var(--ink2)}
