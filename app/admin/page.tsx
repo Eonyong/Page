@@ -12,7 +12,11 @@ export default function Admin() {
   const [err, setErr] = useState("");
 
   async function load() {
-    try { setRows(await api("/api/posts")); setAuthed(true); setErr(""); }
+    try {
+      const st = await fetch("/api/setup").then((r) => r.json());
+      if (st.db && !st.table) await api("/api/setup", { method: "POST" });
+      setRows(await api("/api/posts")); setAuthed(true); setErr("");
+    }
     catch (e) { setAuthed(false); setErr((e as Error).message); }
   }
   useEffect(() => { if (getKey()) void load(); }, []);
